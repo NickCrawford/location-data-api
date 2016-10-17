@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/NickCrawford/location-data-api#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
     "csvtojson": "^1.0.2",
     "express": "^4.14.0",
-    "mongoose": "^4.6.0"
+    "mongoose": "^4.6.1"
   }
 }
