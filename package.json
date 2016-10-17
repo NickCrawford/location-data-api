@@ -21,6 +21,6 @@
     "cors": "^2.8.1",
     "csvtojson": "^1.0.2",
     "express": "^4.14.0",
-    "mongoose": "^4.6.1"
+    "mongodb": "^2.2.10"
   }
 }
