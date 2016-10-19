@@ -17,7 +17,6 @@ GLOBAL.rootRequire = function(name) {
 };
 
 let express = require('express');
-let mongoose = require('mongoose');
 let fs = require("fs");
 
 let configure = require('./app/helpers/configure');
@@ -27,9 +26,26 @@ let config = require('./app/config/config');
 let app = express();
 let router = express.Router();
 
+var locations = require('./app/locations/locations');
+
+app.get('/locations', locations.findAll);
+
+//app.get('/near/:lat-:long', this.findByPoint);
+app.get('/near/:lat-:long,:dist', locations.findNearPoint);
+
 // Connect to database
-let mongo = process.env.MONGO_URI || config.mongo.uri;
-mongoose.connect(mongo);
+let url = process.env.MONGO_URI || config.mongo.uri;
+// var MongoClient = require('mongodb').MongoClient;
+// var assert = require('assert');
+
+
+
+
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   console.log("Connected correctly to server.", db.s.databaseName);
+//   datab = db;
+// });
 
 // Initialize configuration
 configure.app(app, router);
@@ -39,28 +55,12 @@ app.get('/', function(req, res) {
 	console.log("Welcome to the location data API");
 })
 
-app.get('/location', function (req, res) {
-	var query = Akron.findOne({ 'name.last': 'Ghost' });
-
-	// selecting the `name` and `occupation` fields
-	//query.select('name occupation');
-
-	// execute the query at a later time
-	query.exec(function (err, data) {
-	  if (err) return handleError(err);
-	  console.log(data);
-	})
-
-})
-
 app.get('/intersects/:region', function(req, res) {
 	console.log("Getting information within the region " + req.params.region);
-  res.send("Getting information within the region " + req.params.region);
+  	res.send("Getting information within the region " + req.params.region);
 });
 
-app.get('/near/:point', function(req, res) {
-  res.send("Getting information near " + req.params.point);
-});
+
 
 app.get('/test', function(req,res){
 	//http://server/test?points=foo,bar
