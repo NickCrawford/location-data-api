@@ -31,8 +31,10 @@ var locations = require('./app/locations/locations');
 app.get('/locations', locations.findAll);
 
 //app.get('/near/:lat-:long', this.findByPoint);
-app.get('/near/:lat-:long,:dist', locations.findNearPoint);
-
+app.get('/near/:lat,:long/:max?-:min?', locations.findNearPoint);
+app.get('/near/:lat,:long/:max?', locations.findNearPoint);
+app.get('/near/:lat-:long', locations.findNearPoint);
+app.get('/debug/makeGeo2d', locations.makeGeo2d);
 // Connect to database
 let url = process.env.MONGO_URI || config.mongo.uri;
 // var MongoClient = require('mongodb').MongoClient;
