@@ -36,14 +36,14 @@ exports.findAll = function(req, res) {
 /** 
  * Queries the database using a single point and a radius. aka a 'circle' query
  * 
- * @param {double} lat - Latitude of the query point
- * @param {double} long - Longitude of the query point
+ * @param {float} lat - Latitude of the query point
+ * @param {float} long - Longitude of the query point
  * @param {(double|integer)} [max] - (Optional) The maximum radius around the point to query for
  * @param {(double|integer)} [min] - The minimum radius from the origin point to query for.
  */
 exports.near = function(req, res) {
-	var lat = parseFloat(req.params.lat) || 0,
-	long = parseFloat(req.params.long) || 0,
+	var lat = parseFloat(req.params.lat) || 0.0,
+	long = parseFloat(req.params.long) || 0.0,
 	max = parseInt(req.params.max) || 100,
 	min = parseInt(req.params.min) || 0;
 
