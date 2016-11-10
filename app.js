@@ -26,22 +26,8 @@ let config = require('./app/config/config');
 let app = express();
 let router = express.Router();
 
-var locations = require('./app/locations/locations');
-
-app.get('/locations', locations.findAll);
-
-//app.get('/near/:lat-:long', this.findByPoint);
-app.get('/near/:lat,:long/:max?-:min?', locations.findNearPoint);
-app.get('/near/:lat,:long/:max?', locations.findNearPoint);
-app.get('/near/:lat-:long', locations.findNearPoint);
-app.get('/debug/makeGeo2d', locations.makeGeo2d);
 // Connect to database
 let url = process.env.MONGO_URI || config.mongo.uri;
-// var MongoClient = require('mongodb').MongoClient;
-// var assert = require('assert');
-
-
-
 
 // MongoClient.connect(url, function(err, db) {
 //   assert.equal(null, err);
@@ -53,28 +39,12 @@ let url = process.env.MONGO_URI || config.mongo.uri;
 configure.app(app, router);
 
 app.get('/', function(req, res) {
-	res.send("Hello World");
-	console.log("Welcome to the location data API");
+	res.send("Welcome to the location data api. For help, check out our <a href='/help'>documentation</a>");
+	console.log("Welcome to the location data API. Visit ");
 })
 
-app.get('/intersects/:region', function(req, res) {
-	console.log("Getting information within the region " + req.params.region);
-  	res.send("Getting information within the region " + req.params.region);
-});
 
-
-
-app.get('/test', function(req,res){
-	//http://server/test?points=foo,bar
-
-
-	var points = req.query.points.split(',');
-    console.log(points);
-
-    res.status(200).send(points);
-});
-
-var server = app.listen(8081, function () {
+var server = app.listen(config.port, function () {
 
    var host = server.address().address
    var port = server.address().port

@@ -22,5 +22,8 @@
     "csvtojson": "^1.0.2",
     "express": "^4.14.0",
     "mongodb": "^2.2.10"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.4.3"
   }
 }

@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 var mongo = require('mongodb');
@@ -31,7 +33,15 @@ exports.findAll = function(req, res) {
 
 
 // GET https://localhost:8081/near/lat,long/max?-min?
-exports.findNearPoint = function(req, res) {
+/** 
+ * Queries the database using a single point and a radius. aka a 'circle' query
+ * 
+ * @param {double} lat - Latitude of the query point
+ * @param {double} long - Longitude of the query point
+ * @param {(double|integer)} [max] - (Optional) The maximum radius around the point to query for
+ * @param {(double|integer)} [min] - The minimum radius from the origin point to query for.
+ */
+exports.near = function(req, res) {
 	var lat = parseFloat(req.params.lat) || 0,
 	long = parseFloat(req.params.long) || 0,
 	max = parseInt(req.params.max) || 100,
@@ -53,6 +63,7 @@ exports.findNearPoint = function(req, res) {
 				} 
 			}
 		}).toArray(function(err, items) {
+			
 			res.send(items);
 		});
 	});
@@ -92,7 +103,7 @@ exports.makeGeo2d =  function(req, res) {
 };
 
 
-
+}());
 
 
 
