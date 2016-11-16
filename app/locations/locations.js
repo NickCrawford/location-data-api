@@ -27,7 +27,7 @@ exports.findAll = function(req, res) {
 	db.collection('porto', function(err, collection) {
 		collection.find().limit(500).toArray(function(err, items) {
 			if (err) return res.internalError();
-			res.status(200).json(items);
+			res.send(items);
 		});
 	});
 };
