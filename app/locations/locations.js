@@ -25,7 +25,7 @@ db.open(function(err, db) {
 
 exports.findAll = function(req, res) {
 	db.collection('porto', function(err, collection) {
-		collection.find().toArray(function(err, items).limit(500) {
+		collection.find().limit(500).toArray(function(err, items) {
 			if (err) return res.internalError();
 			res.status(200).json(items);
 		});
