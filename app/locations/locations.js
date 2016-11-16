@@ -26,7 +26,8 @@ db.open(function(err, db) {
 exports.findAll = function(req, res) {
 	db.collection('porto', function(err, collection) {
 		collection.find().toArray(function(err, items) {
-			res.send(items);
+			if (err) return res.internalError();
+			res.status(200).json(items);
 		});
 	});
 };

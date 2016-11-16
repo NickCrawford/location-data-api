@@ -21,6 +21,8 @@ let fs = require("fs");
 
 let configure = require('./app/helpers/configure');
 let config = require('./app/config/config');
+let log = require('./app/helpers/logger');
+let routes = require('./app/routes');
 
 //Make our application
 let app = express();
@@ -40,9 +42,13 @@ configure.app(app, router);
 
 app.get('/', function(req, res) {
 	res.send("Welcome to the location data api. For help, check out our <a href='/help'>documentation</a>");
-	console.log("Welcome to the location data API. Visit ");
-})
+	log.info("Welcome to the location data API. Visit ");
+});
 
+module.exports.app = app;
+module.exports.router = router;
+
+routes(router);
 
 var server = app.listen(config.port, function () {
 

@@ -6,7 +6,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 //let error = require('./error');
 let config = rootRequire('app/config/config');
-//let log = require('./logger');
+let log = require('./logger');
 
 module.exports = {
 
