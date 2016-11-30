@@ -13,7 +13,7 @@ db = new Db('local', server);
 
 db.open(function(err, db) {
 	if(!err) {
-		console.log("Connected to 'local' database");
+		console.log("Connected to 'local' database", db);
 		db.collection('porto', {strict:true}, function(err, collection) {
 			if (err) {
 				console.log("The 'porto' collection doesn't exist. Creating it with sample data...");
@@ -64,8 +64,8 @@ exports.near = function(req, res) {
 				} 
 			}
 		}).toArray(function(err, items) {
-			
-			res.send(items);
+			console.log("items", items);
+			res.status(200).json(items);
 		});
 	});
 };
