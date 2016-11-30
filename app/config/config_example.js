@@ -25,32 +25,16 @@ module.exports = {
     port: 6379
   },
 
-  // SendGrid account info for sending emails
-  // This is the account info you use to log into the SendGrid website
-  sendgrid: {
-    username: 'username',
-    password: 'password',
-    from: 'me@example.com',
-    fromname: 'First Last'
-  },
-
   // Users to be added to the db upon starting the app. Useful for adding an initial admin
   users: [{
     email: 'user@example.com',
-    password: 'password123',
-    role: 'attendee|staff|admin'
+    password: 'password123'
   }],
 
   // A list of enabled client IDs
   // Clients must use one of these IDs to get a token for a user
   clients: [
-    'mocha', // You should leave this one here if you want to run `npm test`
-    'abc123'
-  ],
 
-  // Google Cloud Messaging info
-  gcm: {
-    apiKey: 'YOUR_GOOGLE_API_KEY'
-  }
+  ],
 
 };
