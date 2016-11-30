@@ -26,7 +26,7 @@ if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test') {
       },
       {
         level: 'warn',
-        path: '/var/tmp/location-api.log'
+        path: 'C:/Windows/Temp/location-api.log'
       }
     ]
   });

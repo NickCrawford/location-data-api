@@ -7,29 +7,32 @@ var mongo = require('mongodb');
 var Server = mongo.Server,
 Db = mongo.Db,
 BSON = mongo.BSONPure;
+var collection = null;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true}),
 db = new Db('local', server);
 
 db.open(function(err, db) {
 	if(!err) {
-		console.log("Connected to 'local' database");
-		db.collection('porto', {strict:true}, function(err, collection) {
+		console.log("Connected to 'local' database", db);
+		db.collection('porto', {strict:true}, function(err, coll) {
 			if (err) {
 				console.log("The 'porto' collection doesn't exist. Creating it with sample data...");
                 //populateDB();
+            } else {
+            	console.log('collection', coll);
+            	collection = coll;
             }
         });
 	}
 });
 
 exports.findAll = function(req, res) {
-	db.collection('porto', function(err, collection) {
+	console.log(collection);
 		collection.find().limit(500).toArray(function(err, items) {
 			if (err) return res.internalError();
 			res.send(items);
 		});
-	});
 };
 
 
@@ -50,7 +53,6 @@ exports.near = function(req, res) {
 
 	console.log("Getting points near Lat: " + lat +" and Long: "+ long + (!req.params.min ? (" within "+max+ " meters") : (" between "+min+" and "+max+" meters")));
 
-	db.collection('porto', function(err, collection) {
 		collection.find({
 			"loc" : { 
 				$near: {
@@ -63,11 +65,14 @@ exports.near = function(req, res) {
 
 				} 
 			}
-		}).toArray(function(err, items) {
-			
-			res.send(items);
+		}, {"limit": 25}, function(err, items) {
+			if (err) { console.log(err)}
+			else {
+				console.log("items", items);
+				//return res.send(items);
+			}
+
 		});
-	});
 };
 
 exports.makeGeo2d =  function(req, res) {
