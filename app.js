@@ -23,6 +23,8 @@ let configure = require('./app/helpers/configure');
 let config = require('./app/config/config');
 let log = require('./app/helpers/logger');
 let routes = require('./app/routes');
+let locations = require('./app/locations/locations');
+
 
 //Make our application
 let app = express();
@@ -44,6 +46,8 @@ app.get('/', function(req, res) {
 	res.send("Welcome to the location data api. For help, check out our <a href='/help'>documentation</a>");
 	log.info("Welcome to the location data API. Visit ");
 });
+
+app.get('/ls', locations.ls);
 
 module.exports.app = app;
 module.exports.router = router;
